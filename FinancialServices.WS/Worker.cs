@@ -1,4 +1,4 @@
-namespace FinancialServices.WS
+namespace PublicBonds.WS
 {
     public class Worker : BackgroundService
     {

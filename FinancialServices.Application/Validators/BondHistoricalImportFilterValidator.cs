@@ -1,10 +1,10 @@
-﻿using FinancialServices.Application.Interfaces.Services;
-using FinancialServices.Application.Persistance;
-using FinancialServices.Domain.Entities;
-using FinancialServices.Domain.RequestObjects;
+﻿using PublicBonds.Application.Interfaces.Services;
+using PublicBonds.Application.Persistance;
+using PublicBonds.Domain.Entities;
+using PublicBonds.Domain.RequestObjects;
 using FluentValidation;
 
-namespace FinancialServices.Application.Validators
+namespace PublicBonds.Application.Validators
 {
     public class BondHistoricalImportFilterValidator : AbstractValidator<PublicBondHistoricalImportFilterRequest>
     {
@@ -12,11 +12,11 @@ namespace FinancialServices.Application.Validators
         {
             RuleFor(x => x.Year)
                 .Must((x, year) => IsValidYear(year, x.BondName)) // Passando o objeto completo para validação
-                .WithMessage("Ano inválido"); // Altere para obter do .resx
+                .WithMessage("Invalid Year"); // Altere para obter do .resx
 
             RuleFor(x => x.BondName)
                 .Must(IsValidBond)
-                .WithMessage("Título informado não encontrado"); // Altere para obter do .resx
+                .WithMessage("Bond Type informed not found"); // Altere para obter do .resx
         }
 
         private static bool IsValidYear(int? year, string? bondName)

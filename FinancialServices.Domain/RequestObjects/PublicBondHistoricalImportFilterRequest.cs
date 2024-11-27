@@ -1,4 +1,4 @@
-﻿namespace FinancialServices.Domain.RequestObjects
+﻿namespace PublicBonds.Domain.RequestObjects
 {
     public record PublicBondHistoricalImportFilterRequest
     {

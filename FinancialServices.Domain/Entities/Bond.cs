@@ -1,4 +1,4 @@
-﻿using FinancialServices.Domain.Entities;
+﻿using PublicBonds.Domain.Entities;
 
 public class Bond : Entity, IEquatable<Bond>
 {

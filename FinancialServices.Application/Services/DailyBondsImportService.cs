@@ -1,14 +1,15 @@
 ﻿using ExcelDataReader;
-using FinancialServices.Application.Exceptions;
-using FinancialServices.Application.Interfaces.Repositories;
-using FinancialServices.Application.Interfaces.Services;
-using FinancialServices.Application.Persistance;
-using FinancialServices.Application.Validators;
-using FinancialServices.Domain.Entities;
-using FinancialServices.Domain.RequestObjects;
+using PublicBonds.Application.Exceptions;
+using PublicBonds.Application.Interfaces.Repositories;
+using PublicBonds.Application.Interfaces.Services;
+using PublicBonds.Application.Persistance;
+using PublicBonds.Application.Validators;
+using PublicBonds.Domain.Entities;
+using PublicBonds.Domain.RequestObjects;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.Extensions.Configuration;
+using System.Diagnostics.Metrics;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -16,17 +17,17 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 
-namespace FinancialServices.Application.Services
+namespace PublicBonds.Application.Services
 {
     public class DailyBondsImportService : IDailyBondsImportService
     {
-        private readonly IPublicBondsInfoService _publicBondsInfoService;
+        private readonly IPublicBondsInformationalService _publicBondsInfoService;
         private readonly IBondRepository _bondRepository;
         private readonly IDailyBondsImportRepository _dailyBondsImportRepository;
         private readonly IValidator<PublicBondHistoricalImportFilterRequest> _publicBondHistoricalImportFilterValidator;
         private readonly string? _tesouroDiretoUrl;
 
-        public DailyBondsImportService(IPublicBondsInfoService publicBondsInfoService,
+        public DailyBondsImportService(IPublicBondsInformationalService publicBondsInfoService,
             IValidator<PublicBondHistoricalImportFilterRequest> publicBondHistoricalImportFilterValidator,
             IBondRepository bondRepository,
             IDailyBondsImportRepository dailyBondsImportRepository,
@@ -42,24 +43,32 @@ namespace FinancialServices.Application.Services
 
         public async Task ImportAllHistoricalDailyBondsData(PublicBondHistoricalImportFilterRequest request)
         {
-            var validationResult = await _publicBondHistoricalImportFilterValidator.ValidateAsync(request);
-            if (validationResult == null || !validationResult.IsValid)
+            try
             {
-                var errors = validationResult?.Errors
-                    .Select(e => $"{e.PropertyName}: {e.ErrorMessage}")
-                    .ToList() ?? new List<string> { "O resultado da validação está vazio." };
+                var validationResult = await _publicBondHistoricalImportFilterValidator.ValidateAsync(request);
+                if (validationResult == null || !validationResult.IsValid)
+                {
+                    var errors = validationResult?.Errors
+                        .Select(e => $"{e.PropertyName}: {e.ErrorMessage}")
+                        .ToList() ?? new List<string> { "O resultado da validação está vazio." };
 
-                throw new CustomValidationException("Falha na validação", errors);
-            }
+                    throw new DailyBondImportRequestValidationException("Request Validation Error", errors);
+                }
 
-            if (request.Year is null)
-            { 
-                await ProcessAllYearsAsync(request.BondName);
+                if (request.Year is null)
+                {
+                    await ProcessAllYearsAsync(request.BondName);
+                }
+                else
+                {
+                    await ProcessSingleYearAsync(request.BondName, (int)request.Year);
+                }
             }
-            else
+            catch(Exception)
             {
-                await ProcessSingleYearAsync(request.BondName, (int)request.Year);
+                Console.WriteLine($"Erro na importacao do titulo {request.ToString()}");
             }
+            
         }
 
         private async Task ProcessAllYearsAsync(string bondTypeName)
@@ -124,7 +133,7 @@ namespace FinancialServices.Application.Services
                 response.EnsureSuccessStatusCode();
                 return await response.Content.ReadAsStreamAsync();
             }
-            catch (WebException ex) when ((ex.Response as HttpWebResponse)?.StatusCode == HttpStatusCode.NotFound)
+            catch (HttpRequestException)
             {
                 Console.WriteLine($"Download do arquivo {downloadPath} não disponivel no tesouro direto");
                 throw;
@@ -138,6 +147,7 @@ namespace FinancialServices.Application.Services
         private async Task<List<DailyBondInfo>> ReadExcelFile(Stream fileStream, BondType bondType)
         {
             var dailyBondInfos = new List<DailyBondInfo>();
+
 
             using (var reader = ExcelReaderFactory.CreateReader(fileStream))
             {

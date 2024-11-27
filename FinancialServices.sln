@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancialServices", "FinancialServices\FinancialServices.csproj", "{A14EA2BA-BE8F-4A7F-BB89-48EE3D53A849}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicBonds", "FinancialServices\PublicBonds.csproj", "{A14EA2BA-BE8F-4A7F-BB89-48EE3D53A849}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancialServices.Domain", "FinancialServices.Domain\FinancialServices.Domain.csproj", "{5D3F2D79-3059-452A-A1B4-92E536081BD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicBonds.Domain", "FinancialServices.Domain\PublicBonds.Domain.csproj", "{5D3F2D79-3059-452A-A1B4-92E536081BD8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{8715225E-713C-4EAF-9DF6-A5C1B576D8D5}"
 EndProject
@@ -15,13 +15,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{18CA343D-3230-4325-BECC-2CA9A8F11423}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancialServices.Application", "FinancialServices.Application\FinancialServices.Application.csproj", "{1D92BC47-5F80-4370-8D35-F6544B28F1DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicBonds.Application", "FinancialServices.Application\PublicBonds.Application.csproj", "{1D92BC47-5F80-4370-8D35-F6544B28F1DA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancialServivces.Infrastructure.Ioc", "FinancialServivces.Infrastructure.Ioc\FinancialServivces.Infrastructure.Ioc.csproj", "{4DABC7CF-78E1-46EA-9098-B62ED07E330F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicBonds.Infrastructure.Ioc", "FinancialServivces.Infrastructure.Ioc\PublicBonds.Infrastructure.Ioc.csproj", "{4DABC7CF-78E1-46EA-9098-B62ED07E330F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancialServices.Infrastructure.Data", "FinancialServices.Infrastructure.Data\FinancialServices.Infrastructure.Data.csproj", "{1DE73E7D-C971-424B-91C0-EC5127549C10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicBonds.Infrastructure.Data", "FinancialServices.Infrastructure.Data\PublicBonds.Infrastructure.Data.csproj", "{1DE73E7D-C971-424B-91C0-EC5127549C10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialServices.WS", "FinancialServices.WS\FinancialServices.WS.csproj", "{05BFDC20-AF12-46E4-8DFB-98772D2D69CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicBonds.WS", "FinancialServices.WS\PublicBonds.WS.csproj", "{05BFDC20-AF12-46E4-8DFB-98772D2D69CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

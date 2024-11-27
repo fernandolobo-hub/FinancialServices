@@ -1,17 +1,17 @@
-﻿using FinancialServices.Application.Interfaces.Services;
-using FinancialServices.Application.Interfaces.Repositories;
-using FinancialServices.Application.Services;
+﻿using PublicBonds.Application.Interfaces.Services;
+using PublicBonds.Application.Interfaces.Repositories;
+using PublicBonds.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using MySqlConnector;
-using FinancialServices.Application.Validators;
+using PublicBonds.Application.Validators;
 
 
 
 using FluentValidation;
-using FinancialServices.Domain.RequestObjects;
-using FinancialServices.Infrastructure.Data.DB;
-using FinancialServices.Application.Persistance;
+using PublicBonds.Domain.RequestObjects;
+using PublicBonds.Infrastructure.Data.DB;
+using PublicBonds.Application.Persistance;
 
 namespace FinancialServivces.Infrastructure.Ioc
 {
@@ -25,7 +25,7 @@ namespace FinancialServivces.Infrastructure.Ioc
                  new MySqlConnection(x.GetRequiredService<IConfiguration>().GetConnectionString("DefaultConnection")));
 
             //services
-            services.AddScoped<IPublicBondsInfoService, PublicBondTypesService>();
+            services.AddScoped<IPublicBondsInformationalService, InformationalService>();
             services.AddScoped<IDailyBondsImportService, DailyBondsImportService>();
 
             //repositories

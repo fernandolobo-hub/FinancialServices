@@ -1,11 +1,11 @@
-using FinancialServices.Domain.Entities;
+using PublicBonds.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinancialServices.Application.Interfaces.Repositories
+namespace PublicBonds.Application.Interfaces.Repositories
 {
     public interface IBondRepository : IGenericRepository<Bond>
     {

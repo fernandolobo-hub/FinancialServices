@@ -8,8 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.10.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.0" />	  	      
-    <ProjectReference Include="..\FinancialServices.Domain\FinancialServices.Domain.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.0" />
 	<PackageReference Include="ExcelDataReader" Version="3.7.0" />
 	<PackageReference Include="ExcelDataReader.DataSet" Version="3.7.0" />
   </ItemGroup>
@@ -18,6 +17,10 @@
     <Folder Include="DTOs\" />
     <Folder Include="Interfaces\Validators\" />
     <Folder Include="Resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FinancialServices.Domain\PublicBonds.Domain.csproj" />
   </ItemGroup>
 
 

@@ -1,34 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FinancialServices.Domain.ResponseObjects.Temps
+﻿namespace PublicBonds.Domain.ResponseObjects.Temps
 {
-    public class ResponseEnvelope<T>
+    public class ResponseEnvelope<T>(bool success, string message, T? data)
     {
-        public bool Success { get; set; }
-        public string Message { get; set; }
-        public T Data { get; set; }
+        public bool Success { get; set; } = success;
+        public string Message { get; set; } = message;
+        public T? Data { get; set; } = data;
 
-        public ResponseEnvelope()
-        {
-        }
-
-        public ResponseEnvelope(bool success, string message, T data)
-        {
-            Success = success;
-            Message = message;
-            Data = data;
-        }
-
-        public static ResponseEnvelope<T> Ok(T data, string message = "")
+        public static ResponseEnvelope<T> Ok(T? data = default, string message = "")
         {
             return new ResponseEnvelope<T>(true, message, data);
         }
 
-        public static ResponseEnvelope<T> Error(string message, T data)
+        public static ResponseEnvelope<T> Error(T? data = default, string message = "")
         {
             return new ResponseEnvelope<T>(false, message, data);
         }

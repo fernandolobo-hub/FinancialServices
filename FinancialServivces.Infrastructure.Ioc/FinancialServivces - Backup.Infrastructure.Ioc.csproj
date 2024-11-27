@@ -11,9 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FinancialServices.Application\FinancialServices.Application.csproj" />
-    <ProjectReference Include="..\FinancialServices.Domain\FinancialServices.Domain.csproj" />
-    <ProjectReference Include="..\FinancialServices.Infrastructure.Data\FinancialServices.Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\PublicBonds.Application\PublicBonds.Application.csproj" />
+    <ProjectReference Include="..\PublicBonds.Domain\PublicBonds.Domain.csproj" />
+    <ProjectReference Include="..\PublicBonds.Infrastructure.Data\PublicBonds.Infrastructure.Data.csproj" />
   </ItemGroup>
 
 </Project>

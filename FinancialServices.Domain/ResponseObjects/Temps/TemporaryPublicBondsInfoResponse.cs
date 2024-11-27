@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinancialServices.Domain.ResponseObjects.Temps
+namespace PublicBonds.Domain.ResponseObjects.Temps
 {
     public class TemporaryPublicBondsInfoResponse
     {

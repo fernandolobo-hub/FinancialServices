@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinancialServices.Domain.Entities
+namespace PublicBonds.Domain.Entities
 {
     public class DailyBondInfo : Entity
     {

@@ -1,12 +1,12 @@
 using Dapper;
-using FinancialServices.Application.Interfaces.Repositories;
-using FinancialServices.Application.Persistance;
-using FinancialServices.Domain.Entities;
+using PublicBonds.Application.Interfaces.Repositories;
+using PublicBonds.Application.Persistance;
+using PublicBonds.Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 using System.Linq.Expressions;
 
-namespace FinancialServices.Infrastructure.Data.DB
+namespace PublicBonds.Infrastructure.Data.DB
 {
     public class BondRepository : IBondRepository
     {

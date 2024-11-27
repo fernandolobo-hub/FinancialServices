@@ -1,7 +1,6 @@
-﻿using FinancialServices.Domain.Enums;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using PublicBonds.Domain.Enums;
 
-namespace FinancialServices.Domain.Entities
+namespace PublicBonds.Domain.Entities
 {
     public class BondType : Entity
     {

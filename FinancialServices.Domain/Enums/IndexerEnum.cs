@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinancialServices.Domain.Enums
+namespace PublicBonds.Domain.Enums
 {
     public enum IndexerEnum
     {

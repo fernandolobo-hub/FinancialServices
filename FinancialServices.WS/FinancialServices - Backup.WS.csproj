@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>dotnet-FinancialServices.WS-48364d2c-9ad6-452d-8f54-2a75664a2f89</UserSecretsId>
+    <UserSecretsId>dotnet-PublicBonds.WS-48364d2c-9ad6-452d-8f54-2a75664a2f89</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

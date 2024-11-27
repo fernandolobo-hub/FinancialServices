@@ -1,8 +1,8 @@
-﻿using FinancialServices.Domain.Entities;
+﻿using PublicBonds.Domain.Entities;
 using System;
 
 
-namespace FinancialServices.Application.Interfaces.Repositories
+namespace PublicBonds.Application.Interfaces.Repositories
 {
     public interface IGenericRepository<T> where T : class
     {

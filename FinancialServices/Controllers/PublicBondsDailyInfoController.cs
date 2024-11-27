@@ -1,22 +1,23 @@
-﻿using FinancialServices.Application.Exceptions;
-using FinancialServices.Application.Interfaces.Repositories;
-using FinancialServices.Application.Interfaces.Services;
-using FinancialServices.Domain.Entities;
-using FinancialServices.Domain.RequestObjects;
+﻿using PublicBonds.Application.Exceptions;
+using PublicBonds.Application.Interfaces.Repositories;
+using PublicBonds.Application.Interfaces.Services;
+using PublicBonds.Domain.Entities;
+using PublicBonds.Domain.RequestObjects;
+using PublicBonds.Domain.ResponseObjects.Temps;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FinancialServices.Controllers
+namespace PublicBonds.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class PublicBondsDailyInfoController : ControllerBase
     {
-        private readonly ILogger<PublicBondTypesController> _logger;
+        private readonly ILogger<PublicBondsInformationalController> _logger;
         private readonly IDailyBondsImportService _dailyBondsImportService;
 
-        public PublicBondsDailyInfoController(ILogger<PublicBondTypesController> logger,
+        public PublicBondsDailyInfoController(ILogger<PublicBondsInformationalController> logger,
             IDailyBondsImportService dailyBondsImportService,
-            IPublicBondsInfoService publicBondsInfoService)
+            IPublicBondsInformationalService publicBondsInfoService)
         {
             _logger = logger;
             _dailyBondsImportService = dailyBondsImportService;
@@ -31,9 +32,13 @@ namespace FinancialServices.Controllers
             {
                 await _dailyBondsImportService.ImportAllHistoricalDailyBondsData(request);
             }
-            catch (CustomValidationException ex)
+            catch (DailyBondImportRequestValidationException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ResponseEnvelope<object>.Error(ex.ToString()));
+            }
+            catch(HttpRequestException)
+            {
+                return BadRequest();
             }
             catch(Exception ex)
             {

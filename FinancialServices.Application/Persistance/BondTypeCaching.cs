@@ -1,8 +1,8 @@
-﻿using FinancialServices.Application.Interfaces.Repositories;
-using FinancialServices.Domain.Entities;
+﻿using PublicBonds.Application.Interfaces.Repositories;
+using PublicBonds.Domain.Entities;
 
 
-namespace FinancialServices.Application.Persistance
+namespace PublicBonds.Application.Persistance
 {
     public static class BondTypeCaching
     {

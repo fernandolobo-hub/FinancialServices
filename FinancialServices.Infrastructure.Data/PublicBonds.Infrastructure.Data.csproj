@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FinancialServices.Application\FinancialServices.Application.csproj" />
-    <ProjectReference Include="..\FinancialServices.Domain\FinancialServices.Domain.csproj" />
+    <ProjectReference Include="..\FinancialServices.Application\PublicBonds.Application.csproj" />
+    <ProjectReference Include="..\FinancialServices.Domain\PublicBonds.Domain.csproj" />
   </ItemGroup>
 
 </Project>
