@@ -7,7 +7,7 @@ using System.Data.Common;
 
 namespace PublicBonds.Infrastructure.Data.DB
 {
-    public class DailyBondsImportRepository : IDailyBondsImportRepository
+    public class DailyBondsImportRepository : IDailyBondPricesRepository
     {
 
         private readonly IConfiguration _configuration;
@@ -21,7 +21,7 @@ namespace PublicBonds.Infrastructure.Data.DB
             return new MySqlConnection(_configuration.GetConnectionString("DefaultConnection"));
         }
 
-        public async Task<int> ImportDailyBonds(IList<DailyBondInfo> dailyBondInfos)
+        public async Task<int> Import(IList<DailyBondInfo> dailyBondInfos)
         {
             var query = @"
                         INSERT INTO daily_bonds_info 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PublicBonds.Application.Interfaces.Services
 {
-    public interface IDailyBondsImportService
+    public interface IDailyPricesService
     {
         Task ImportAllHistoricalDailyBondsData(PublicBondHistoricalImportFilterRequest request);
     }

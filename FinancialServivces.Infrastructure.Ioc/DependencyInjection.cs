@@ -25,13 +25,13 @@ namespace FinancialServivces.Infrastructure.Ioc
                  new MySqlConnection(x.GetRequiredService<IConfiguration>().GetConnectionString("DefaultConnection")));
 
             //services
-            services.AddScoped<IPublicBondsInformationalService, InformationalService>();
-            services.AddScoped<IDailyBondsImportService, DailyBondsImportService>();
+            services.AddScoped<IInformationalService, InformationalService>();
+            services.AddScoped<IDailyPricesService, DailyPricesService>();
 
             //repositories
             services.AddScoped<IBondTypeRepository, BondTypeRepository>();
             services.AddScoped<IBondRepository, BondRepository>();
-            services.AddScoped<IDailyBondsImportRepository, DailyBondsImportRepository>();
+            services.AddScoped<IDailyBondPricesRepository, DailyBondsImportRepository>();
 
 
             //validators

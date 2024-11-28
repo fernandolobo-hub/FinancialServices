@@ -5,7 +5,7 @@ using PublicBonds.Domain.RequestObjects;
 
 namespace PublicBonds.Application.Services
 {
-    public class InformationalService : IPublicBondsInformationalService
+    public class InformationalService : IInformationalService
     {
 
         private readonly IBondTypeRepository _publicBondTypesRepository;
@@ -15,12 +15,12 @@ namespace PublicBonds.Application.Services
             _publicBondTypesRepository = publicBondsInfoRepository;
         }
 
-        public Task<IEnumerable<Bond>> GetAllAvailableBonds()
+        public Task<IEnumerable<Bond>> GetAvailableBonds()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<BondType>> GetAllAvailableBondTypes()
+        public Task<IEnumerable<BondType>> GetAvailableBondTypes()
         {
             try
             {

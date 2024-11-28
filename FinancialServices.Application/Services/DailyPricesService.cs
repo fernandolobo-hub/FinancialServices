@@ -19,24 +19,22 @@ using System.Text.RegularExpressions;
 
 namespace PublicBonds.Application.Services
 {
-    public class DailyBondsImportService : IDailyBondsImportService
+    public class DailyPricesService : IDailyPricesService
     {
-        private readonly IPublicBondsInformationalService _publicBondsInfoService;
         private readonly IBondRepository _bondRepository;
-        private readonly IDailyBondsImportRepository _dailyBondsImportRepository;
+        private readonly IDailyBondPricesRepository _dailyBondPricesRepository;
         private readonly IValidator<PublicBondHistoricalImportFilterRequest> _publicBondHistoricalImportFilterValidator;
         private readonly string? _tesouroDiretoUrl;
 
-        public DailyBondsImportService(IPublicBondsInformationalService publicBondsInfoService,
+        public DailyPricesService(IInformationalService publicBondsInfoService,
             IValidator<PublicBondHistoricalImportFilterRequest> publicBondHistoricalImportFilterValidator,
             IBondRepository bondRepository,
-            IDailyBondsImportRepository dailyBondsImportRepository,
+            IDailyBondPricesRepository dailyBondsImportRepository,
             IConfiguration configuration)
         {
-            _publicBondsInfoService = publicBondsInfoService;
             _publicBondHistoricalImportFilterValidator = publicBondHistoricalImportFilterValidator;
             _bondRepository = bondRepository;
-            _dailyBondsImportRepository = dailyBondsImportRepository;
+            _dailyBondPricesRepository = dailyBondsImportRepository;
             _tesouroDiretoUrl = configuration.GetSection("TesouroDireto").GetSection("BaseUrl").Value;
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
@@ -111,15 +109,14 @@ namespace PublicBonds.Application.Services
                 var bondHasBeenImported = await HasBondDailyInfoBeenImported(id, year);
                 if(bondHasBeenImported)
                 {
-                    //LOGICA TA ERRADA!!!
-                    await _dailyBondsImportRepository.DeleteByBondId(id, year);
+                    await _dailyBondPricesRepository.DeleteByBondId(id, year);
                 }
-                await _dailyBondsImportRepository.ImportDailyBonds(bondBatch);
+                await _dailyBondPricesRepository.Import(bondBatch);
             }
         }
         private async Task<bool> HasBondDailyInfoBeenImported(int bondId, int year)
         {
-            return await _dailyBondsImportRepository.HasBondBeenImported(bondId, year);
+            return await _dailyBondPricesRepository.HasBondBeenImported(bondId, year);
 
         }
 

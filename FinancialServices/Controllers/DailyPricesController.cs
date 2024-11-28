@@ -10,14 +10,14 @@ namespace PublicBonds.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PublicBondsDailyInfoController : ControllerBase
+    public class DailyPricesController : ControllerBase
     {
-        private readonly ILogger<PublicBondsInformationalController> _logger;
-        private readonly IDailyBondsImportService _dailyBondsImportService;
+        private readonly ILogger<InformationalController> _logger;
+        private readonly IDailyPricesService _dailyBondsImportService;
 
-        public PublicBondsDailyInfoController(ILogger<PublicBondsInformationalController> logger,
-            IDailyBondsImportService dailyBondsImportService,
-            IPublicBondsInformationalService publicBondsInfoService)
+        public DailyPricesController(ILogger<InformationalController> logger,
+            IDailyPricesService dailyBondsImportService,
+            IInformationalService publicBondsInfoService)
         {
             _logger = logger;
             _dailyBondsImportService = dailyBondsImportService;

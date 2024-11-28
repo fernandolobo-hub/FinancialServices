@@ -9,13 +9,13 @@ namespace PublicBonds.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PublicBondsInformationalController : ControllerBase
+    public class InformationalController : ControllerBase
     {
-        private readonly ILogger<PublicBondsInformationalController> _logger;
-        private readonly IPublicBondsInformationalService _publicBondsService;
+        private readonly ILogger<InformationalController> _logger;
+        private readonly IInformationalService _publicBondsService;
 
 
-        public PublicBondsInformationalController(ILogger<PublicBondsInformationalController> logger, IPublicBondsInformationalService publicBondsInfoService, IDailyBondsImportService dailyBondsImportService)
+        public InformationalController(ILogger<InformationalController> logger, IInformationalService publicBondsInfoService, IDailyPricesService dailyBondsImportService)
         {
             _logger = logger;
             _publicBondsService = publicBondsInfoService;
@@ -25,7 +25,7 @@ namespace PublicBonds.Controllers
         [HttpGet("BondTypes", Name = "BondTypes")]
         public async Task<ActionResult<ResponseEnvelope<IEnumerable<BondType>>>> GetBondTypes([FromQuery] PublicBondsFilterRequest request)
         {
-            var bondTypes = await _publicBondsService.GetAllAvailableBondTypes();
+            var bondTypes = await _publicBondsService.GetAvailableBondTypes();
             if (bondTypes == null || !bondTypes.Any())
             {
                 return NotFound();
@@ -38,7 +38,7 @@ namespace PublicBonds.Controllers
         public async Task<ActionResult<ResponseEnvelope<IEnumerable<Bond>>>> GetBonds([FromQuery] PublicBondsFilterRequest request)
         {
 
-            var bonds = await _publicBondsService.GetAllAvailableBonds();
+            var bonds = await _publicBondsService.GetAvailableBonds();
             if (bonds == null || !bonds.Any())
             {
                 return NotFound();

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace PublicBonds.Application.Interfaces.Repositories
 {
-    public interface IDailyBondsImportRepository
+    public interface IDailyBondPricesRepository
     {
-        Task<int> ImportDailyBonds(IList<DailyBondInfo> dailyBondInfos);
+        Task<int> Import(IList<DailyBondInfo> dailyBondInfos);
 
         Task<bool> HasBondBeenImported(int bondId, int year);
 

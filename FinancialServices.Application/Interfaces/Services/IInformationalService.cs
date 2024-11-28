@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace PublicBonds.Application.Interfaces.Services
 {
-    public interface IPublicBondsInformationalService
+    public interface IInformationalService
     {
-        Task<IEnumerable<BondType>> GetAllAvailableBondTypes();
-        Task<IEnumerable<Bond>> GetAllAvailableBonds();
+        Task<IEnumerable<BondType>> GetAvailableBondTypes();
+        Task<IEnumerable<Bond>> GetAvailableBonds();
     }
 }
