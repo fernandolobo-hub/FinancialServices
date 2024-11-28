@@ -3,8 +3,8 @@ using PublicBonds.Application.Interfaces.Repositories;
 using PublicBonds.Application.Interfaces.Services;
 using PublicBonds.Domain.Entities;
 using PublicBonds.Domain.RequestObjects;
-using PublicBonds.Domain.ResponseObjects.Temps;
 using Microsoft.AspNetCore.Mvc;
+using PublicBonds.Domain.ResponseObjects;
 
 namespace PublicBonds.Controllers
 {

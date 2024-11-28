@@ -8,7 +8,7 @@ namespace PublicBonds.Domain.Enums
 {
     public enum RateType
     {
-        Fixed = 1,
-        Floating = 2
+        Prefixado = 1,
+        PosFixado = 2
     }
 }

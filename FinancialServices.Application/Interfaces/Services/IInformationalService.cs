@@ -1,4 +1,5 @@
-﻿using PublicBonds.Domain.Entities;
+﻿using PublicBonds.Application.DTOs.Response;
+using PublicBonds.Domain.Entities;
 using PublicBonds.Domain.RequestObjects;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace PublicBonds.Application.Interfaces.Services
 {
     public interface IInformationalService
     {
-        Task<IEnumerable<BondType>> GetAvailableBondTypes();
-        Task<IEnumerable<Bond>> GetAvailableBonds();
+        Task<IEnumerable<BondTypeResponseDto>> GetAvailableBondTypes();
+        Task<IEnumerable<Bond>> GetAvailableBonds(BondFilterRequest request);
     }
 }

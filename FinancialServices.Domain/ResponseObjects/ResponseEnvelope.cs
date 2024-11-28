@@ -1,4 +1,4 @@
-﻿namespace PublicBonds.Domain.ResponseObjects.Temps
+﻿namespace PublicBonds.Domain.ResponseObjects
 {
     public class ResponseEnvelope<T>(bool success, string message, T? data)
     {
