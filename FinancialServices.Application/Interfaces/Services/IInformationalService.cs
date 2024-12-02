@@ -12,6 +12,6 @@ namespace PublicBonds.Application.Interfaces.Services
     public interface IInformationalService
     {
         Task<IEnumerable<BondTypeResponseDto>> GetAvailableBondTypes();
-        Task<IEnumerable<Bond>> GetAvailableBonds(BondFilterRequest request);
+        Task<IEnumerable<BondResponseDto>> GetBondsAsync(BondFilterRequest request);
     }
 }

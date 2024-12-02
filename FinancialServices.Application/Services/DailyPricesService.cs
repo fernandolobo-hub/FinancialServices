@@ -1,5 +1,5 @@
 ﻿using ExcelDataReader;
-using PublicBonds.Application.Exceptions;
+using PublicBonds.Domain.Exceptions;
 using PublicBonds.Application.Interfaces.Repositories;
 using PublicBonds.Application.Interfaces.Services;
 using PublicBonds.Application.Persistance;
@@ -15,6 +15,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using PublicBonds.Domain.Exceptions.Request;
 
 
 namespace PublicBonds.Application.Services

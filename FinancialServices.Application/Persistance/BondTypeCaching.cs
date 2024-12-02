@@ -1,5 +1,6 @@
 ﻿using PublicBonds.Application.Interfaces.Repositories;
 using PublicBonds.Domain.Entities;
+using PublicBonds.Domain.Exceptions;
 
 
 namespace PublicBonds.Application.Persistance
@@ -34,10 +35,5 @@ namespace PublicBonds.Application.Persistance
 
             return bondType;
         }
-    }
-
-    public class InvalidBondTypeNameException : Exception
-    {
-        public InvalidBondTypeNameException(string message) : base(message) { }
     }
 }

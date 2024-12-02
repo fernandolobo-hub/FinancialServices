@@ -8,6 +8,7 @@ namespace PublicBonds.Domain.RequestObjects
 {
     public class BondFilterRequest
     {
-        string BondTypeName { get; set; } = String.Empty;
+        public required string BondTypeName { get; set; }
+        public bool IncludeMaturedBonds { get; set; } = true;
     }
 }

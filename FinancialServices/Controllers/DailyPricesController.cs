@@ -1,10 +1,10 @@
-﻿using PublicBonds.Application.Exceptions;
-using PublicBonds.Application.Interfaces.Repositories;
+﻿using PublicBonds.Application.Interfaces.Repositories;
 using PublicBonds.Application.Interfaces.Services;
 using PublicBonds.Domain.Entities;
 using PublicBonds.Domain.RequestObjects;
 using Microsoft.AspNetCore.Mvc;
 using PublicBonds.Domain.ResponseObjects;
+using PublicBonds.Domain.Exceptions.Request;
 
 namespace PublicBonds.Controllers
 {

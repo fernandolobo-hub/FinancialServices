@@ -5,6 +5,7 @@ using PublicBonds.Domain.RequestObjects;
 using Microsoft.AspNetCore.Mvc;
 using PublicBonds.Domain.ResponseObjects;
 using PublicBonds.Application.DTOs.Response;
+using PublicBonds.Domain.Exceptions.Request;
 
 namespace PublicBonds.Controllers
 {
@@ -24,28 +25,49 @@ namespace PublicBonds.Controllers
 
         //Description: returns all public bonds the system has data on.
         [HttpGet("BondTypes", Name = "BondTypes")]
-        public async Task<ActionResult<ResponseEnvelope<IEnumerable<BondTypeResponseDto>>>> GetBondTypes()
+        public async Task<ActionResult<ResponseEnvelope<IEnumerable<BondType>>>> GetBondTypes()
         {
-            var bondTypes = await _publicBondsService.GetAvailableBondTypes();
-            if (bondTypes == null || !bondTypes.Any())
+            try
             {
-                return NotFound();
+                var bondTypes = await _publicBondsService.GetAvailableBondTypes();
+                if (bondTypes == null || !bondTypes.Any())
+                {
+                    return NotFound();
+                }
+                var result = ResponseEnvelope<IEnumerable<BondTypeResponseDto>>.Ok(bondTypes);
+                return Ok(result);
             }
-            var result = ResponseEnvelope<IEnumerable<BondTypeResponseDto>>.Ok(bondTypes);
-            return Ok(result);
+            catch(Exception ex)
+            {
+                Console.WriteLine("Erro ao obter os bond types: ", ex);
+                return StatusCode(500, "Internal error. We apologize for the inconvenience.");
+            }
         }
 
         [HttpGet("Bonds", Name = "Bonds")]
-        public async Task<ActionResult<ResponseEnvelope<IEnumerable<Bond>>>> GetBonds([FromQuery] BondFilterRequest request)
+        public async Task<ActionResult<ResponseEnvelope<IEnumerable<BondResponseDto>>>> GetBonds([FromQuery] BondFilterRequest request)
         {
-
-            var bonds = await _publicBondsService.GetAvailableBonds(request);
-            if (bonds == null || !bonds.Any())
+            try
             {
-                return NotFound();
+                var bonds = await _publicBondsService.GetBondsAsync(request);
+                if (bonds == null || !bonds.Any())
+                {
+                    return NotFound();
+                }
+                var response = ResponseEnvelope<IEnumerable<BondResponseDto>>.Ok(bonds);
+                return Ok(response);
             }
-            var result = ResponseEnvelope<IEnumerable<Bond>>.Ok(bonds);
-            return Ok(result);
+            catch(BondRequestValidationException ex)
+            {
+                var errorResponse = ResponseEnvelope<object>.Error(ex.Message);
+                return BadRequest(errorResponse);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Erro ao obter os bonds: ", ex);
+                return StatusCode(500);
+            }
+            
         }
     }
 }

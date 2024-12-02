@@ -10,5 +10,7 @@ namespace PublicBonds.Application.Interfaces.Repositories
     public interface IBondRepository : IGenericRepository<Bond>
     {
         Task<int> SaveAsync(Bond bond);
+
+        Task<IEnumerable<Bond>> GetBondsAsync(int bondTypeId);
     }
 }

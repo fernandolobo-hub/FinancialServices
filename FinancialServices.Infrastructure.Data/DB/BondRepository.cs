@@ -5,6 +5,7 @@ using PublicBonds.Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 using System.Linq.Expressions;
+using System.Data.Common;
 
 namespace PublicBonds.Infrastructure.Data.DB
 {
@@ -46,16 +47,14 @@ namespace PublicBonds.Infrastructure.Data.DB
                 {
                     await connection.OpenAsync();
 
-                    // Mapeamento automático usando splitOn
                     var result = await connection.QueryAsync<Bond, BondType, Bond>(
                         sql,
                         map: (bond, bondType) =>
                         {
-                            // Configura o BondType corretamente
                             bond.Type = bondType;
                             return bond;
                         },
-                        splitOn: "Id" // Indica onde dividir entre Bond e BondType com base em "Id"
+                        splitOn: "Id"
                     );
 
                     return result;
@@ -103,5 +102,45 @@ namespace PublicBonds.Infrastructure.Data.DB
                 throw;
             }
         }
+
+        public async Task<IEnumerable<Bond>> GetBondsAsync(int bondTypeId)
+        {
+            var sql = @"
+                        SELECT 
+                            b.id AS Id,                   -- Id de Bond
+                            b.maturity_date AS MaturityDate, 
+                            bt.id AS Id,                  -- Id de BondType
+                            bt.bond_name AS Name,         -- Nome do BondType
+                            bt.has_coupon AS HasCoupon, 
+                            bt.annual_coupon_percentage AS AnnualCouponPercentage,
+                            bt.indexer_id AS Indexer,
+                            bt.vna_date_base AS VnaDateBase,
+                            bt.rate_type AS RateType,
+                            bt.category AS Category
+                        FROM bonds b
+                        JOIN bond_types bt ON b.bond_type_id = bt.id
+                        WHERE b.bond_type_id = @BondTypeId";
+
+
+            using (var connection = GetConnection())
+            {
+                await connection.OpenAsync();
+
+                var paramaters = new { BondTypeId = bondTypeId };
+
+                var result = await connection.QueryAsync<Bond, BondType, Bond>(
+                        sql,
+                        map: (bond, bondType) =>
+                        {
+                            bond.Type = bondType;
+                            return bond;
+                        },
+                        paramaters,
+                        splitOn: "Id"
+                    );
+                return result;
+            }
+        }
+
     }
 }

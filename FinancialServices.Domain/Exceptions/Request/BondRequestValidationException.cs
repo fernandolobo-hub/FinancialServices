@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace PublicBonds.Application.Exceptions
+namespace PublicBonds.Domain.Exceptions.Request
 {
-    public class DailyBondImportRequestValidationException : Exception
+    public class BondRequestValidationException : Exception
     {
         public List<string> ValidationErrors { get; }
 
-        public DailyBondImportRequestValidationException(string message, List<string> validationErrors) : base(message)
+        public BondRequestValidationException(string message, List<string> validationErrors) : base(message)
         {
             ValidationErrors = validationErrors;
         }

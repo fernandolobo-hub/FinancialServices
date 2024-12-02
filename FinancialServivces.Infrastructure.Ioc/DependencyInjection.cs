@@ -36,6 +36,7 @@ namespace FinancialServivces.Infrastructure.Ioc
 
             //validators
             services.AddScoped<IValidator<PublicBondHistoricalImportFilterRequest>, BondHistoricalImportFilterValidator>();
+            services.AddScoped<IValidator<BondFilterRequest>, BondFilterRequestValidator>();
 
 
             return services;
