@@ -1,20 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PublicBonds.Domain.Exceptions.Request
 {
-    public class DailyBondImportRequestValidationException : Exception
+    public class DailyBondImportRequestValidationException : RequestValidationException
     {
-        public List<string> ValidationErrors { get; }
-
-        public DailyBondImportRequestValidationException(string message, List<string> validationErrors) : base(message)
+        public DailyBondImportRequestValidationException(string message, List<string> validationErrors) : base(message, validationErrors)
         {
-            ValidationErrors = validationErrors;
-        }
-
-        public override string ToString()
-        {
-            return $"{Message} - {string.Join("; ", ValidationErrors)}";
         }
     }
 }

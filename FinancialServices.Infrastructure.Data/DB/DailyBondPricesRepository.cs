@@ -4,14 +4,15 @@ using PublicBonds.Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 using System.Data.Common;
+using PublicBonds.Application.DTOs.Response;
 
 namespace PublicBonds.Infrastructure.Data.DB
 {
-    public class DailyBondsImportRepository : IDailyBondPricesRepository
+    public class DailyBondPricesRepository : IDailyBondPricesRepository
     {
 
         private readonly IConfiguration _configuration;
-        public DailyBondsImportRepository(IConfiguration configuration)
+        public DailyBondPricesRepository(IConfiguration configuration)
         {
             _configuration = configuration;
         }
@@ -109,5 +110,43 @@ namespace PublicBonds.Infrastructure.Data.DB
             }
         }
 
+        public async Task<IEnumerable<DailyBondInfoDto>> GetByBondId(int bondId, int startYear, int endYear)
+        {
+            var query = @"
+                SELECT 
+                    reference_date AS Date, 
+                    morning_buy_rate AS MorningBuyRate, 
+                    morning_sell_rate AS MorningSellRate, 
+                    morning_buy_price AS MorningBuyPrice, 
+                    morning_sell_price AS MorningSellPrice 
+                FROM 
+                    daily_bonds_info 
+                WHERE 
+                    bond_id = @BondId 
+                    AND year(reference_date) BETWEEN @StartYear AND @EndYear";
+
+            using (var connection = GetConnection())
+            {
+                try
+                {
+                    await connection.OpenAsync();
+
+                    var parameters = new
+                    {
+                        BondId = bondId,
+                        StartYear = startYear,
+                        EndYear = endYear
+                    };
+
+                    var result = await connection.QueryAsync<DailyBondInfoDto>(query, parameters);
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Erro ao obter os registros para o BondId {bondId}: {ex.Message}");
+                    throw;
+                }
+            }
+        }
     }
 }

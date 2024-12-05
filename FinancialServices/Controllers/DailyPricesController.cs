@@ -5,6 +5,7 @@ using PublicBonds.Domain.RequestObjects;
 using Microsoft.AspNetCore.Mvc;
 using PublicBonds.Domain.ResponseObjects;
 using PublicBonds.Domain.Exceptions.Request;
+using PublicBonds.Application.DTOs.Response;
 
 namespace PublicBonds.Controllers
 {
@@ -34,7 +35,7 @@ namespace PublicBonds.Controllers
             }
             catch (DailyBondImportRequestValidationException ex)
             {
-                return BadRequest(ResponseEnvelope<object>.Error(ex.ToString()));
+                return BadRequest(ResponseEnvelope<object>.Error(ex.Message));
             }
             catch(HttpRequestException)
             {
@@ -46,7 +47,33 @@ namespace PublicBonds.Controllers
                 throw;
             }
             
-            return Created();
+            return Ok(ResponseEnvelope<object>.Ok(message: $"{request.BondName} successfully imported"));
         }
+
+        [HttpGet("HistoricalPrices", Name = "HistoricalPrices")]
+        public async Task<ActionResult<ResponseEnvelope<IEnumerable<DailyBondInfoDto>>>> GetHistoricalPrices([FromQuery] PublicBondsHistoricalDataFilterRequest request)
+        {
+            try
+            {
+                var historicalPrices = await _dailyBondsImportService.GetHistoricalPrices(request);
+                if (historicalPrices == null || !historicalPrices.Any())
+                {
+                    return NotFound();
+                }
+                var response = ResponseEnvelope<IEnumerable<DailyBondInfoDto>>.Ok(historicalPrices);
+                return Ok(response);
+            }
+            catch (PublicBondsHistoricalDataRequestValidationException ex)
+            {
+                return BadRequest(ResponseEnvelope<object>.Error(ex.Message));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ocorreu um erro: ", ex);
+                throw;
+            }
+        }
+
+
     }
 }

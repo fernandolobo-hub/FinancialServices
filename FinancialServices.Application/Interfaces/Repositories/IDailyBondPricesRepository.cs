@@ -1,9 +1,5 @@
-﻿using PublicBonds.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PublicBonds.Application.DTOs.Response;
+using PublicBonds.Domain.Entities;
 
 namespace PublicBonds.Application.Interfaces.Repositories
 {
@@ -14,5 +10,7 @@ namespace PublicBonds.Application.Interfaces.Repositories
         Task<bool> HasBondBeenImported(int bondId, int year);
 
         Task<bool> DeleteByBondId(int bondId, int year);
+
+        Task<IEnumerable<DailyBondInfoDto>> GetByBondId(int bondId, int startYear, int endYear);
     }
 }

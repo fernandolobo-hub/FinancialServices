@@ -31,13 +31,13 @@ namespace FinancialServivces.Infrastructure.Ioc
             //repositories
             services.AddScoped<IBondTypeRepository, BondTypeRepository>();
             services.AddScoped<IBondRepository, BondRepository>();
-            services.AddScoped<IDailyBondPricesRepository, DailyBondsImportRepository>();
+            services.AddScoped<IDailyBondPricesRepository, DailyBondPricesRepository>();
 
 
             //validators
-            services.AddScoped<IValidator<PublicBondHistoricalImportFilterRequest>, BondHistoricalImportFilterValidator>();
+            services.AddScoped<IValidator<PublicBondHistoricalImportFilterRequest>, DailyPricesImportFilterValidator>();
+            services.AddScoped<IValidator<PublicBondsHistoricalDataFilterRequest>, DailyPricesInfoRequestValidator>();
             services.AddScoped<IValidator<BondFilterRequest>, BondFilterRequestValidator>();
-
 
             return services;
         }

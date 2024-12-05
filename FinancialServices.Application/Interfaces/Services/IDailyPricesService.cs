@@ -1,14 +1,12 @@
-﻿using PublicBonds.Domain.RequestObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PublicBonds.Application.DTOs.Response;
+using PublicBonds.Domain.RequestObjects;
 
 namespace PublicBonds.Application.Interfaces.Services
 {
     public interface IDailyPricesService
     {
         Task ImportAllHistoricalDailyBondsData(PublicBondHistoricalImportFilterRequest request);
+        Task<IEnumerable<DailyBondInfoDto>> GetHistoricalPrices(PublicBondsHistoricalDataFilterRequest request);
     }
+
 }

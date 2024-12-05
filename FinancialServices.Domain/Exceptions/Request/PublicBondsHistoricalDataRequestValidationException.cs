@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace PublicBonds.Domain.Exceptions.Request
 {
-    public class BondRequestValidationException : RequestValidationException
+    public class PublicBondsHistoricalDataRequestValidationException : RequestValidationException
     {
-        public BondRequestValidationException(string message, List<string> validationErrors) : base(message, validationErrors)
+        public PublicBondsHistoricalDataRequestValidationException(string message, List<string> validationErrors) : base(message, validationErrors)
         {
         }
     }

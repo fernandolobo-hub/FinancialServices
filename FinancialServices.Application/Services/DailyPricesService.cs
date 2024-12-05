@@ -9,14 +9,10 @@ using PublicBonds.Domain.RequestObjects;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.Extensions.Configuration;
-using System.Diagnostics.Metrics;
-using System.Globalization;
-using System.Linq;
-using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using PublicBonds.Domain.Exceptions.Request;
-
+using PublicBonds.Application.DTOs.Response;
 
 namespace PublicBonds.Application.Services
 {
@@ -25,15 +21,18 @@ namespace PublicBonds.Application.Services
         private readonly IBondRepository _bondRepository;
         private readonly IDailyBondPricesRepository _dailyBondPricesRepository;
         private readonly IValidator<PublicBondHistoricalImportFilterRequest> _publicBondHistoricalImportFilterValidator;
+        private readonly IValidator<PublicBondsHistoricalDataFilterRequest> _publicBondsHistoricalDataFilterRequestValidator;
         private readonly string? _tesouroDiretoUrl;
 
         public DailyPricesService(IInformationalService publicBondsInfoService,
             IValidator<PublicBondHistoricalImportFilterRequest> publicBondHistoricalImportFilterValidator,
+            IValidator<PublicBondsHistoricalDataFilterRequest> publicBondsHistoricalDataFilterRequestValidator,
             IBondRepository bondRepository,
             IDailyBondPricesRepository dailyBondsImportRepository,
             IConfiguration configuration)
         {
             _publicBondHistoricalImportFilterValidator = publicBondHistoricalImportFilterValidator;
+            _publicBondsHistoricalDataFilterRequestValidator = publicBondsHistoricalDataFilterRequestValidator;
             _bondRepository = bondRepository;
             _dailyBondPricesRepository = dailyBondsImportRepository;
             _tesouroDiretoUrl = configuration.GetSection("TesouroDireto").GetSection("BaseUrl").Value;
@@ -68,6 +67,33 @@ namespace PublicBonds.Application.Services
                 Console.WriteLine($"Erro na importacao do titulo {request.ToString()}");
             }
             
+        }
+
+        public Task<IEnumerable<DailyBondInfoDto>> GetHistoricalPrices(PublicBondsHistoricalDataFilterRequest request)
+        {
+            try
+            {
+                var validationResult = _publicBondsHistoricalDataFilterRequestValidator.Validate(request);
+                if (!validationResult.IsValid)
+                {
+                    var errors = validationResult.Errors
+                        .Select(e => $"{e.PropertyName}: {e.ErrorMessage}")
+                        .ToList();
+
+                    throw new PublicBondsHistoricalDataRequestValidationException("Request Validation Error", errors);
+                }
+
+                var bond = BondCaching.GetBondByNameAndMaturityDate(request.BondName, request.MaturityDate);
+
+                return _dailyBondPricesRepository.GetByBondId(bond.Id, request.StartYear, request.EndYear);
+            }
+
+
+            catch(Exception ex)
+            {
+                Console.WriteLine("Erro ao obter os bonds: ", ex);
+                throw;
+            }
         }
 
         private async Task ProcessAllYearsAsync(string bondTypeName)

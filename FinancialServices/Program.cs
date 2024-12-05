@@ -1,7 +1,6 @@
 using PublicBonds.Application.Interfaces.Repositories;
 using PublicBonds.Application.Persistance;
 using FinancialServivces.Infrastructure.Ioc;
-using MySqlConnector;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +21,9 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var bondTypeRepository = services.GetRequiredService<IBondTypeRepository>();
+    var bondRepository = services.GetRequiredService<IBondRepository>();
     BondTypeCaching.Initialize(bondTypeRepository);
+    BondCaching.Initialize(bondRepository);
 }
 
 // Configure the HTTP request pipeline.

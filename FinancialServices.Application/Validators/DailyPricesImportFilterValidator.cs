@@ -6,9 +6,9 @@ using FluentValidation;
 
 namespace PublicBonds.Application.Validators
 {
-    public class BondHistoricalImportFilterValidator : AbstractValidator<PublicBondHistoricalImportFilterRequest>
+    public class DailyPricesImportFilterValidator : AbstractValidator<PublicBondHistoricalImportFilterRequest>
     {
-        public BondHistoricalImportFilterValidator()
+        public DailyPricesImportFilterValidator()
         {
             RuleFor(x => x.Year)
                 .Must((x, year) => IsValidYear(year, x.BondName)) // Passando o objeto completo para validação
