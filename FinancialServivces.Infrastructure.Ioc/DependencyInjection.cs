@@ -12,6 +12,8 @@ using FluentValidation;
 using PublicBonds.Domain.RequestObjects;
 using PublicBonds.Infrastructure.Data.DB;
 using PublicBonds.Application.Persistance;
+using PublicBonds.Application.Factories;
+using PublicBonds.Application.Interfaces.Factories;
 
 namespace FinancialServivces.Infrastructure.Ioc
 {
@@ -27,17 +29,26 @@ namespace FinancialServivces.Infrastructure.Ioc
             //services
             services.AddScoped<IInformationalService, InformationalService>();
             services.AddScoped<IDailyPricesService, DailyPricesService>();
+            services.AddScoped<IPricingService, PricingService>();
+            services.AddScoped<IChronosService, ChronosService>();
+            services.AddScoped<IHolidaysService, HolidaysService>();
+
 
             //repositories
             services.AddScoped<IBondTypeRepository, BondTypeRepository>();
             services.AddScoped<IBondRepository, BondRepository>();
             services.AddScoped<IDailyBondPricesRepository, DailyBondPricesRepository>();
+            services.AddScoped<IHolidaysRepository, HolidaysRepository>();
 
 
             //validators
             services.AddScoped<IValidator<PublicBondHistoricalImportFilterRequest>, DailyPricesImportFilterValidator>();
             services.AddScoped<IValidator<PublicBondsHistoricalDataFilterRequest>, DailyPricesInfoRequestValidator>();
             services.AddScoped<IValidator<BondFilterRequest>, BondFilterRequestValidator>();
+            services.AddScoped<IValidator<BondPricingRequest>, PricingRequestValidator>();
+
+            //factories
+            services.AddScoped<IBondPricingStrategyFactory, BondPricingStrategyFactory>();
 
             return services;
         }

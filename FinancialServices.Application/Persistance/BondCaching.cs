@@ -27,14 +27,14 @@ namespace PublicBonds.Application.Persistance
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                throw new InvalidBondTypeNameException("Nome do bond não pode ser nulo ou vazio.");
+                throw new BondValidationException("Nome do bond não pode ser nulo ou vazio.");
             }
 
             var bond = _bonds?.FirstOrDefault(x => x.Name == name && x.MaturityDate == maturityDate);
 
             if (bond == null)
             {
-                throw new InvalidBondTypeNameException($"BondType com o nome '{name}' não encontrado.");
+                throw new BondValidationException($"BondType com o nome '{name}' não encontrado.");
             }
 
             return bond;

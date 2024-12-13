@@ -67,7 +67,6 @@ namespace PublicBonds.Controllers
                 Console.WriteLine("Erro ao obter os bonds: ", ex);
                 return StatusCode(500);
             }
-            
         }
     }
 }

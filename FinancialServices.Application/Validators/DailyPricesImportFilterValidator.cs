@@ -3,6 +3,7 @@ using PublicBonds.Application.Persistance;
 using PublicBonds.Domain.Entities;
 using PublicBonds.Domain.RequestObjects;
 using FluentValidation;
+using PublicBonds.Domain.Exceptions;
 
 namespace PublicBonds.Application.Validators
 {
@@ -26,9 +27,21 @@ namespace PublicBonds.Application.Validators
             {
                 return year >= 2000 && year <= DateTime.Now.Year;
             }
-            
-            var bond = BondTypeCaching.GetBondTypeByName(bondName);
-            return year >= bond.FirstTradedAt && year <= DateTime.Now.Year;
+
+            try
+            {
+                var bond = BondTypeCaching.GetBondTypeByName(bondName);
+                return year >= bond.FirstTradedAt && year <= DateTime.Now.Year;
+            }
+            catch (InvalidBondTypeNameException)
+            {
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error to validate year", ex);
+                throw;
+            }
         }
 
         private static bool IsValidBond(string? bondName)
