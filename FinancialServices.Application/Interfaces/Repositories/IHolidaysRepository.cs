@@ -1,6 +1,4 @@
-﻿using PublicBonds.Domain.Entities;
-
-namespace PublicBonds.Application.Interfaces.Repositories
+﻿namespace PublicBonds.Application.Interfaces.Repositories
 {
     public interface IHolidaysRepository
     {

@@ -6,9 +6,9 @@ namespace PublicBonds.Domain.RequestObjects
 
         public required DateTime BondMaturityDate { get; set; }
 
-        public required DateTime ReferenceDate { get; set; }
+        public required DateTime PurchaseDate { get; set; }
 
-        public required double Rate { get; set; }
+        public required decimal Rate { get; set; }
 
         public required decimal Quantity { get; set; }
     }

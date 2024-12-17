@@ -14,15 +14,17 @@ namespace PublicBonds.Application.Strategies
     public class NtnbPricingStrategy : IBondPricingStrategy
     {
         private readonly IChronosService _chronosService;
+        private readonly IVnaService _vnaService;
 
-        public NtnbPricingStrategy(IChronosService chronosService)
+        public NtnbPricingStrategy(IChronosService chronosService, IVnaService vnaService)
         {
             _chronosService = chronosService;
+            _vnaService = vnaService;
         }
 
         public Task<BondPricingResponse> CalculatePriceAsync(BondPricingRequest request)
         {
-            var businessDays = _chronosService.GetBusinessDaysAsync(request.ReferenceDate, request.BondMaturityDate);
+            var businessDays = _chronosService.GetBusinessDaysAsync(request.PurchaseDate, request.BondMaturityDate);
 
             throw new NotImplementedException();
         }

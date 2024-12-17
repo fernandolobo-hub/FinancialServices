@@ -23,7 +23,7 @@ namespace PublicBonds.Application.Validators
                 .Must((x, bondName) => IsValidBond(bondName, x.BondMaturityDate))
                 .WithMessage("Invalid Bond Name");
 
-            RuleFor(x => x.ReferenceDate).NotEmpty().Must(IsValidDate).WithMessage("Date must be greater or equal than today");
+            RuleFor(x => x.PurchaseDate).NotEmpty().Must(IsValidDate).WithMessage("Date must be greater or equal than today");
 
             RuleFor(x => x.Quantity).GreaterThan(0).WithMessage("Quantity must be greater than 0");
         }
@@ -34,7 +34,7 @@ namespace PublicBonds.Application.Validators
             //There should be a validation to check if the date passed is greater than the first date the bond was traded. 
             //However, we don't have tis information in the current context. Should be implemented at some point
             //Will just validate if the date is greater than today, akcnowledging it limitates the api usage not allowing to price bonds in the past
-            return date >= DateTime.Today;
+            return true;
         }
 
         private bool IsValidBond(string bondName, DateTime maturityDate)

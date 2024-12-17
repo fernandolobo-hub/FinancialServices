@@ -17,30 +17,31 @@ namespace PublicBonds.Application.Strategies
 
         public async Task<BondPricingResponse> CalculatePriceAsync(BondPricingRequest request)
         {
-            var businessDays = await _chronosService.GetBusinessDaysAsync(request.ReferenceDate, request.BondMaturityDate);
+            var bondPaymentDate = await _chronosService.GetNextBusinessDayAsync(request.BondMaturityDate);
+            var businessDays = await _chronosService.GetBusinessDaysAsync(request.PurchaseDate, bondPaymentDate);
             var annualRate = request.Rate; 
-            var years = businessDays / 252.0;
-            var discountFactor = Math.Pow(1 + annualRate, years);
+            decimal years = businessDays / 252.0m;
+            var discountFactor = (decimal)Math.Pow(1 + (double)annualRate, (double)years);
 
-            double faceValue = 1000.0;
-            double presentValue = faceValue / discountFactor;
+            decimal faceValue = 1000.0m;
+            decimal presentValue = faceValue / discountFactor;
 
             var cashFlow = new CashFlowPayment
             {
-                Date = request.BondMaturityDate,
+                Date = bondPaymentDate,
                 BusinessDays = businessDays,
-                PresentValue = presentValue,
+                PresentValue = Math.Round(presentValue * 100) / 100,
                 FutureValue = faceValue,
                 Coupon = false
             };
 
-            double duration = years;
+            decimal duration = years;
 
             return new BondPricingResponse
             {
                 CashFlowPayments = new List<CashFlowPayment> { cashFlow },
                 Duration = duration,
-                PresentValue = presentValue
+                PresentValue = Math.Truncate(presentValue * 100) / 100
             };
         }
     }

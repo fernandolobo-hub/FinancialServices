@@ -32,6 +32,7 @@ namespace FinancialServivces.Infrastructure.Ioc
             services.AddScoped<IPricingService, PricingService>();
             services.AddScoped<IChronosService, ChronosService>();
             services.AddScoped<IHolidaysService, HolidaysService>();
+            services.AddScoped<IVnaService, VnaService>();
 
 
             //repositories
@@ -39,6 +40,7 @@ namespace FinancialServivces.Infrastructure.Ioc
             services.AddScoped<IBondRepository, BondRepository>();
             services.AddScoped<IDailyBondPricesRepository, DailyBondPricesRepository>();
             services.AddScoped<IHolidaysRepository, HolidaysRepository>();
+            services.AddScoped<IVnaRepositoy, VnaRepository>();
 
 
             //validators
@@ -46,6 +48,7 @@ namespace FinancialServivces.Infrastructure.Ioc
             services.AddScoped<IValidator<PublicBondsHistoricalDataFilterRequest>, DailyPricesInfoRequestValidator>();
             services.AddScoped<IValidator<BondFilterRequest>, BondFilterRequestValidator>();
             services.AddScoped<IValidator<BondPricingRequest>, PricingRequestValidator>();
+            services.AddScoped<IValidator<VnaFilterRequest>, VnaFilterRequestValidator>();
 
             //factories
             services.AddScoped<IBondPricingStrategyFactory, BondPricingStrategyFactory>();

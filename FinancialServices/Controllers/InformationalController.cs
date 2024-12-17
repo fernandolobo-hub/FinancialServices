@@ -23,7 +23,6 @@ namespace PublicBonds.Controllers
             _publicBondsService = publicBondsInfoService;
         }
 
-        //Description: returns all public bonds the system has data on.
         [HttpGet("BondTypes", Name = "BondTypes")]
         public async Task<ActionResult<ResponseEnvelope<IEnumerable<BondType>>>> GetBondTypes()
         {

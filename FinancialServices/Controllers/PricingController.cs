@@ -7,7 +7,7 @@ using PublicBonds.Domain.ResponseObjects;
 
 namespace PublicBonds.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class PricingController : ControllerBase
     {
@@ -33,10 +33,6 @@ namespace PublicBonds.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
-            
-
-            
         }
     }
 }

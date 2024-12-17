@@ -65,6 +65,7 @@ namespace PublicBonds.Application.Services
             catch(Exception)
             {
                 Console.WriteLine($"Erro na importacao do titulo {request.ToString()}");
+                throw;
             }
             
         }

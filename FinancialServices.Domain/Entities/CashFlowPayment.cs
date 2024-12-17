@@ -15,12 +15,12 @@ namespace PublicBonds.Domain.Entities
         /// <summary>
         /// Present value. Indicates the amount that the payment is currently worth.
         /// </summary>
-        public double PresentValue { get; set; }
+        public decimal PresentValue { get; set; }
 
         /// <summary>
         /// Future Value. Indicates the amount to be paid when the payment is due.
         /// </summary>
-        public double FutureValue { get; set; }
+        public decimal FutureValue { get; set; }
 
         /// <summary>
         /// Indicates if is a coupon payment or if the payment is the principal when the bond matures.

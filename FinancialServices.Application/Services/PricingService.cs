@@ -44,12 +44,11 @@ namespace PublicBonds.Application.Services
 
             var bond = BondCaching.GetBondByNameAndMaturityDate(request.BondName, request.BondMaturityDate);
 
-
-            var businessDays = await _chronosService.GetBusinessDaysAsync(request.ReferenceDate, bond.MaturityDate);
-
             var pricingStrategy = _bondPricingStrategyFactory.GetBondPricingStrategy(bond.Type);
 
             var response = await pricingStrategy.CalculatePriceAsync(request);
+
+            response.TruncatePrices();
 
             return new List<BondPricingResponse> { response };
         }
