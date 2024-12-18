@@ -26,5 +26,16 @@ namespace PublicBonds.Application.DTOs.Response
             PresentValue = Math.Truncate(PresentValue * 100) / 100;
         }
 
+        public void UpdatePricesByQuantityFactor(decimal quantity)
+        {
+            foreach(var cashflow in CashFlowPayments)
+            {
+                cashflow.PresentValue *= quantity;
+                cashflow.FutureValue *= quantity;
+            }
+
+            PresentValue *= quantity;
+        }
+
     }
 }

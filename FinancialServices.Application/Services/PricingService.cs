@@ -48,6 +48,8 @@ namespace PublicBonds.Application.Services
 
             var response = await pricingStrategy.CalculatePriceAsync(request);
 
+            response.UpdatePricesByQuantityFactor(request.Quantity);
+
             response.TruncatePrices();
 
             return new List<BondPricingResponse> { response };

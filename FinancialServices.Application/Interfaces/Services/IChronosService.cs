@@ -7,5 +7,9 @@
         Task<DateTime> GetNextBusinessDayAsync(DateTime referenceDate);
 
         int GetDaysBetweenVna15AndDate(DateTime referenceDate, DateTime vnaDate);
+
+        DateTime GetMidMonthDate(DateTime referenceDate);
+
+        DateTime GetNextMidMonthDate(DateTime midMonthCurrent);
     }
 }

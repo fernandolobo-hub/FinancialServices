@@ -68,7 +68,7 @@ namespace PublicBonds.Application.Services
             return days;
         }
 
-        private bool IsBusinessDay(DateTime date, HashSet<DateTime> holidays)
+        public static bool IsBusinessDay(DateTime date, HashSet<DateTime> holidays)
         {
             if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
                 return false;
@@ -77,6 +77,26 @@ namespace PublicBonds.Application.Services
                 return false;
 
             return true;
+        }
+
+        /// <summary>
+        /// Retorna o dia 15 do mês "atual" (se referenceDate dia 20, ainda 15 do mês atual).
+        /// Se quiser tratar dia 15 "passado" ou "futuro" dependendo do day>15, ajuste a lógica.
+        /// </summary>
+        public DateTime GetMidMonthDate(DateTime referenceDate)
+        {
+            // Ex.: sempre dia 15 do mesmo mês/ano da referenceDate
+            return new DateTime(referenceDate.Year, referenceDate.Month, 15);
+        }
+
+        /// <summary>
+        /// Retorna o dia 15 do mês seguinte de midMonthCurrent.
+        /// </summary>
+        public DateTime GetNextMidMonthDate(DateTime midMonthCurrent)
+        {
+            int nextMonth = midMonthCurrent.Month == 12 ? 1 : midMonthCurrent.Month + 1;
+            int nextYear = midMonthCurrent.Month == 12 ? midMonthCurrent.Year + 1 : midMonthCurrent.Year;
+            return new DateTime(nextYear, nextMonth, 15);
         }
     }
 }
