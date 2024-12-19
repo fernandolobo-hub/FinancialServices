@@ -23,7 +23,7 @@ namespace PublicBonds.Controllers
             _publicBondsService = publicBondsInfoService;
         }
 
-        [HttpGet("BondTypes", Name = "BondTypes")]
+        [HttpGet("AvailableBondTypes", Name = "BondTypes")]
         public async Task<ActionResult<ResponseEnvelope<IEnumerable<BondType>>>> GetBondTypes()
         {
             try
@@ -43,7 +43,7 @@ namespace PublicBonds.Controllers
             }
         }
 
-        [HttpGet("Bonds", Name = "Bonds")]
+        [HttpGet("AvailableBonds", Name = "Bonds")]
         public async Task<ActionResult<ResponseEnvelope<IEnumerable<BondResponseDto>>>> GetBonds([FromQuery] BondFilterRequest request)
         {
             try
@@ -65,6 +65,26 @@ namespace PublicBonds.Controllers
             {
                 Console.WriteLine("Erro ao obter os bonds: ", ex);
                 return StatusCode(500);
+            }
+        }
+
+        //Como é um endpoint basico, nao me preocuparei neste momento nos tratamentos especificos de possiveis exceções.
+        [HttpGet("AvailableIndexes", Name="Indexers")]
+        public async Task<ActionResult<ResponseEnvelope<IEnumerable<IndexerResponseDto>>>> GetAvailableVnas()
+        {
+            try
+            {
+                var indexes = await _publicBondsService.GetAvailableIndexesAsync();
+                if(indexes.Count() > 0)
+                {
+                    return ResponseEnvelope<IEnumerable<IndexerResponseDto>>.Ok(indexes);
+                }
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                Console.Write("Error searching for available vnas", ex.Message);
+                throw;
             }
         }
     }

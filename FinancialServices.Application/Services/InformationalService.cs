@@ -14,14 +14,20 @@ namespace PublicBonds.Application.Services
         private readonly IBondTypeRepository _bondTypeRepository;
         private readonly IBondRepository _bondsRepository;
         private readonly IValidator<BondFilterRequest> _bondFilterRequestValidator;
+        private readonly IVnaRepositoy _vnaRepository;
+        private readonly IIndexerRepository _indexerRepository;
 
         public InformationalService(IBondTypeRepository publicBondsInfoRepository,
             IBondRepository bondsRepository,
-            IValidator<BondFilterRequest> bondFilterRequestValidator)
+            IValidator<BondFilterRequest> bondFilterRequestValidator,
+            IVnaRepositoy vnaRepository,
+            IIndexerRepository indexerRepository)
         {
             _bondTypeRepository = publicBondsInfoRepository;
             _bondsRepository = bondsRepository;
             _bondFilterRequestValidator = bondFilterRequestValidator;
+            _vnaRepository = vnaRepository;
+            _indexerRepository = indexerRepository;
         }
 
         public async Task<IEnumerable<BondTypeResponseDto>> GetAvailableBondTypes()
@@ -41,6 +47,42 @@ namespace PublicBonds.Application.Services
             {
                 throw;
             }
+        }
+
+        public async Task<IEnumerable<IndexerResponseDto>> GetAvailableIndexesAsync()
+        {
+            try
+            {
+                List<IndexerResponseDto> indexesDtoList = [];
+
+                var indexesList = await _indexerRepository.GetAllAsync();
+
+                foreach (var index in indexesList)
+                {
+                    indexesDtoList.Add(IndexerResponseDto.IndexerResponseDtoFromIndexer(index));
+                }
+
+                return indexesDtoList;
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine("Unable to retrieve indexes from database", ex.Message);
+                throw;
+            }
+        }
+
+        public async Task<IEnumerable<VnaResponseDto>> GetAvailableVnasAsync()
+        {
+
+            List<VnaResponseDto> vnaResponseDtos = new();
+            List<VnaResponseDto> response = vnaResponseDtos;
+            var vnas = await _vnaRepository.GetAllAsync();
+
+            foreach(var vna in vnas)
+            {
+                vnaResponseDtos.Add(VnaResponseDto.FromVna(vna));
+            }
+            return vnaResponseDtos;
         }
 
         public async Task<IEnumerable<BondResponseDto>> GetBondsAsync(BondFilterRequest request)

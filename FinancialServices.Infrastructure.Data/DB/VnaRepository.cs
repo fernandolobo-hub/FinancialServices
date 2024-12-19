@@ -4,6 +4,7 @@ using MySqlConnector;
 using PublicBonds.Application.Interfaces.Repositories;
 using PublicBonds.Domain.Entities;
 using PublicBonds.Domain.Enums;
+using System;
 
 namespace PublicBonds.Infrastructure.Data.DB
 {
@@ -76,5 +77,26 @@ namespace PublicBonds.Infrastructure.Data.DB
             }
         }
 
+        public async Task<IEnumerable<Vna>> GetAllAsync()
+        {
+            using (var connection = GetConnection())
+            {
+                await connection.OpenAsync();
+
+                // Consulta o VNA cujo reference_date seja <= referenceDate,
+                // ordenando decrescentemente e pegando apenas o mais recente (TOP 1 ou LIMIT 1).
+                var query = @"
+                            SELECT 
+                                id AS Id,
+                                indexer_id AS Indexer,
+                                nominal_value AS NominalValue,
+                                reference_date AS ReferenceDate
+                            FROM vna;";
+
+                var vna = await connection.QueryAsync<Vna>(query);
+
+                return vna;
+            }
+        }
     }
 }

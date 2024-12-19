@@ -41,6 +41,7 @@ namespace FinancialServivces.Infrastructure.Ioc
             services.AddScoped<IDailyBondPricesRepository, DailyBondPricesRepository>();
             services.AddScoped<IHolidaysRepository, HolidaysRepository>();
             services.AddScoped<IVnaRepositoy, VnaRepository>();
+            services.AddScoped<IIndexerRepository, IndexerRepository>();
 
 
             //validators

@@ -15,7 +15,6 @@ namespace PublicBonds.Application.DTOs.Response
         public double? AnnualCouponPercentage { get; set; }
         public string RateType { get; set; }
         public string? Indexer { get; set; }
-        public int HasDataSince { get; set; }
 
         public static BondTypeResponseDto FromBondType(BondType bondType)
         {
@@ -24,8 +23,7 @@ namespace PublicBonds.Application.DTOs.Response
                 BondTypeName = bondType.Name,
                 Category = bondType.Category,
                 AnnualCouponPercentage = bondType.AnnualCouponPercentage,
-                Indexer = bondType.Indexer.ToString(),
-                HasDataSince = bondType.FirstTradedAt
+                Indexer = bondType.Indexer.ToString()
             };
         }
     }

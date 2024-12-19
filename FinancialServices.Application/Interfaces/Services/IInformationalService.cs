@@ -13,5 +13,9 @@ namespace PublicBonds.Application.Interfaces.Services
     {
         Task<IEnumerable<BondTypeResponseDto>> GetAvailableBondTypes();
         Task<IEnumerable<BondResponseDto>> GetBondsAsync(BondFilterRequest request);
+
+        Task<IEnumerable<VnaResponseDto>> GetAvailableVnasAsync();
+
+        Task <IEnumerable<IndexerResponseDto>> GetAvailableIndexesAsync();
     }
 }

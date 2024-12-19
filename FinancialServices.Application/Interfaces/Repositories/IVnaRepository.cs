@@ -3,7 +3,7 @@ using PublicBonds.Domain.Enums;
 
 namespace PublicBonds.Application.Interfaces.Repositories
 {
-    public interface IVnaRepositoy
+    public interface IVnaRepositoy : IGenericRepository<Vna>
     {
         Task<List<Vna>> GetVnasAsync(DateTime startDate, DateTime endDate, IndexerEnum indexer);
 

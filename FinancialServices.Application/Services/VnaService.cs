@@ -24,6 +24,7 @@ namespace PublicBonds.Application.Services
             _vnaRequestValidator = vnaRequestValidator;
         }
 
+
         public async Task<VnaResponseDto> GetMostRecentVnaAsync(DateTime referenceDate, IndexerEnum indexer)
         {
             var mostRecentVna = await _vnaRepository.GetMostRecentVnaAsync(referenceDate, indexer);
