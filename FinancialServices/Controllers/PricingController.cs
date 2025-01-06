@@ -19,8 +19,8 @@ namespace PublicBonds.Controllers
             _pricingService = pricingService;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<ResponseEnvelope<IEnumerable<BondPricingResponse>>>> Post([FromBody] BondPricingRequest request)
+        [HttpGet]
+        public async Task<ActionResult<ResponseEnvelope<IEnumerable<BondPricingResponse>>>> Get([FromQuery] BondPricingRequest request)
         {
 
             try

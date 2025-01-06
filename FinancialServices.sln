@@ -21,8 +21,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicBonds.Infrastructure.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicBonds.Infrastructure.Data", "FinancialServices.Infrastructure.Data\PublicBonds.Infrastructure.Data.csproj", "{1DE73E7D-C971-424B-91C0-EC5127549C10}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicBonds.WS", "FinancialServices.WS\PublicBonds.WS.csproj", "{05BFDC20-AF12-46E4-8DFB-98772D2D69CF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,10 +47,6 @@ Global
 		{1DE73E7D-C971-424B-91C0-EC5127549C10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DE73E7D-C971-424B-91C0-EC5127549C10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DE73E7D-C971-424B-91C0-EC5127549C10}.Release|Any CPU.Build.0 = Release|Any CPU
-		{05BFDC20-AF12-46E4-8DFB-98772D2D69CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{05BFDC20-AF12-46E4-8DFB-98772D2D69CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{05BFDC20-AF12-46E4-8DFB-98772D2D69CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{05BFDC20-AF12-46E4-8DFB-98772D2D69CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,7 +57,6 @@ Global
 		{1D92BC47-5F80-4370-8D35-F6544B28F1DA} = {18CA343D-3230-4325-BECC-2CA9A8F11423}
 		{4DABC7CF-78E1-46EA-9098-B62ED07E330F} = {B075CEEB-FAFC-479F-9638-F11EEB37C458}
 		{1DE73E7D-C971-424B-91C0-EC5127549C10} = {B075CEEB-FAFC-479F-9638-F11EEB37C458}
-		{05BFDC20-AF12-46E4-8DFB-98772D2D69CF} = {8715225E-713C-4EAF-9DF6-A5C1B576D8D5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {415E5789-4E71-430D-A0B1-5E975527B5E7}

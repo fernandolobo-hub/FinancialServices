@@ -25,7 +25,7 @@ namespace PublicBonds.Controllers
         }
 
         //Description: returns all public bonds the system has data on.
-        [HttpPost("ImportAllHistoricalDailyBondsInfo", Name = "Import")]
+        [HttpPost("Import", Name = "Import")]
         public async Task<ActionResult> Post([FromBody] PublicBondHistoricalImportFilterRequest request)
         {
 

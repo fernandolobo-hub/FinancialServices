@@ -30,7 +30,7 @@ namespace PublicBonds.Application.Strategies
             {
                 Date = bondPaymentDate,
                 BusinessDays = businessDays,
-                PresentValue = Math.Round(presentValue * 100) / 100,
+                PresentValue = Math.Truncate(presentValue * 100) / 100,
                 FutureValue = faceValue,
                 Coupon = false
             };

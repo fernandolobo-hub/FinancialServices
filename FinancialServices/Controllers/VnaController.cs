@@ -20,7 +20,7 @@ namespace PublicBonds.Controllers
             _vnaService = vnaService;
         }
 
-        [HttpGet("Vna", Name = "Vna")]
+        [HttpGet(Name = "Vna")]
         public async Task<ActionResult<ResponseEnvelope<IEnumerable<VnaResponseDto>>>> GetVna([FromQuery] VnaFilterRequest request)
         {
             try
