@@ -14,7 +14,7 @@ namespace PublicBonds.Application.Strategies
         private readonly IVnaService _vnaService;
 
         // Valor fixo de 0.63% (0.0063)
-        private const decimal IpcaProjected = 0.0063m;
+        private const decimal IpcaProjected = 0.0059m;
 
         public NtnbPrincipalStrategy(IChronosService chronosService, IVnaService vnaService)
         {

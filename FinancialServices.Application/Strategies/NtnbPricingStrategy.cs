@@ -15,7 +15,7 @@ public class NtnbPricingStrategy : IBondPricingStrategy
     private const double AnnualCoupon = 0.06;
 
     // IPCA projetado (0.63%)
-    private const decimal IpcaProjected = 0.0063m;
+    private const decimal IpcaProjected = 0.0059m;
 
     public NtnbPricingStrategy(IChronosService chronosService, IVnaService vnaService)
     {
