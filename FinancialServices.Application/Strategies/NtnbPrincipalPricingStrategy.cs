@@ -14,7 +14,7 @@ namespace PublicBonds.Application.Strategies
         private readonly IVnaService _vnaService;
 
         // Valor fixo de 0.63% (0.0063)
-        private const decimal IpcaProjected = 0.0059m;
+        private const decimal IpcaProjected = 0.0060m;
 
         public NtnbPrincipalStrategy(IChronosService chronosService, IVnaService vnaService)
         {
@@ -26,40 +26,33 @@ namespace PublicBonds.Application.Strategies
         {
             var bond = BondCaching.GetBondByNameAndMaturityDate(request.BondName, request.BondMaturityDate);
 
-            // 1) Obter VNA base
-            var vnaDto = await _vnaService.GetMostRecentVnaAsync(request.PurchaseDate, IndexerEnum.Ipca);
+
+
+            var liquidationDate = await _chronosService.GetNextBusinessDayAsync(request.PurchaseDate.AddDays(1));
+
+            var vnaDto = await _vnaService.GetMostRecentVnaAsync(liquidationDate, IndexerEnum.Ipca);
             if (vnaDto == null)
                 throw new InvalidOperationException("Nenhum VNA encontrado para IPCA nessa data de referência.");
 
             decimal vnaBase = vnaDto.NominalValue;
-            var liquidationDate = await _chronosService.GetNextBusinessDayAsync(request.PurchaseDate.AddDays(1));
 
-            // 2) Calcular dias úteis fracionados para projeção (dia 15)
-            DateTime midMonthCurrent = _chronosService.GetMidMonthDate(request.PurchaseDate.Date);      // Dia 15 do mês atual ou passado
-            DateTime midMonthNext = _chronosService.GetNextMidMonthDate(midMonthCurrent);   // Dia 15 do mês seguinte
+            int businessDaysNumerator = _chronosService.GetDaysBetweenVna15AndDate(request.PurchaseDate, vnaDto.ReferenceDate);
 
-            // Ex.: diasUteis1 = entre data de compra e midMonthCurrent ou vice-versa
-            int businessDaysNumerator = _chronosService.GetDaysBetweenVna15AndDate(liquidationDate, vnaDto.ReferenceDate);
-
-            // diasUteis2 = entre midMonthCurrent e midMonthNext
             int businessDaysDenominator = DateTime.DaysInMonth(vnaDto.ReferenceDate.Year, vnaDto.ReferenceDate.Month);
 
-            // 3) Projeção do VNA => vnaBase * (1 + IPCAproj)^(diasUteis1 / diasUteis2)
             decimal expo = (decimal)businessDaysNumerator / businessDaysDenominator;
             decimal factor = (decimal)Math.Pow((double)(1 + IpcaProjected), (double)expo);
             decimal vnaProjected = vnaBase * factor;
 
-            // 4) Calcular dias úteis até o vencimento e discountFactor
             int businessDays = await _chronosService.GetBusinessDaysAsync(request.PurchaseDate, bond.MaturityDate);
             decimal years = businessDays / 252.0m;
 
             // discountFactor = 100 / (1 + rate)^(DU/252)
-            decimal discountFactor = 100.0m / (decimal)Math.Pow((double)(1 + request.Rate), (double)years);
+            decimal discountFactor = (decimal)Math.Pow((double)(1 + request.Rate), (double)years);
 
-            // 5) Price = VNAproj * (discountFactor / 100)
-            decimal price = vnaProjected * (discountFactor / 100.0m);
+            // Price = VNAproj * (discountFactor / 100)
+            decimal price = vnaProjected / discountFactor;
 
-            // Montar CashFlowPayment
             var cashFlow = new CashFlowPayment
             {
                 Date = bond.MaturityDate,
