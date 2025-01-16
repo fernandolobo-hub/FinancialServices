@@ -70,10 +70,10 @@ A API **PublicBonds** oferece serviços financeiros relacionados a títulos púb
 - **Método:** `GET`
 - **Descrição:** Recupera os preços históricos de títulos com base nos parâmetros de consulta.
 - **Parâmetros de Consulta:**
-  - `BondName` (string, opcional)
-  - `MaturityDate` (string, formato ISO8601, opcional)
-  - `StartYear` (integer, opcional)
-  - `EndYear` (integer, opcional)
+  - `BondName` (string)
+  - `MaturityDate` (string, formato ISO8601)
+  - `StartYear` (integer)
+  - `EndYear` (integer)
 - **Resposta (200):**
   ```json
   {
@@ -114,7 +114,7 @@ A API **PublicBonds** oferece serviços financeiros relacionados a títulos púb
 - **Descrição:** Lista todos os títulos disponíveis com base no tipo e status de maturação.
 - **Parâmetros de Consulta:**
   - `BondTypeName` (string, opcional)
-  - `IncludeMaturedBonds` (boolean, opcional)
+  - `IncludeMaturedBonds` (boolean, opcional), default = true
 - **Resposta (200):**
   ```json
   {
@@ -137,11 +137,11 @@ A API **PublicBonds** oferece serviços financeiros relacionados a títulos púb
 - **Método:** `GET`
 - **Descrição:** Calcula o preço de compra e venda de títulos públicos com base nos parâmetros fornecidos.
 - **Parâmetros de Consulta:**
-  - `BondName` (string, opcional)
-  - `BondMaturityDate` (string, formato ISO8601, opcional)
-  - `PurchaseDate` (string, formato ISO8601, opcional)
-  - `Rate` (number, opcional)
-  - `Quantity` (number, opcional)
+  - `BondName` (string)
+  - `BondMaturityDate` (string, formato ISO8601)
+  - `PurchaseDate` (string, formato ISO8601)
+  - `Rate` (number)
+  - `Quantity` (number)
 - **Resposta (200):**
   ```json
   {
@@ -161,9 +161,9 @@ A API **PublicBonds** oferece serviços financeiros relacionados a títulos púb
 - **Método:** `GET`
 - **Descrição:** Recupera o VNA para um índice específico em um intervalo de datas.
 - **Parâmetros de Consulta:**
-  - `StartDate` (string, formato ISO8601, obrigatório)
-  - `EndDate` (string, formato ISO8601, obrigatório)
-  - `Indexer` (string, opcional)
+  - `StartDate` (string, formato ISO8601)
+  - `EndDate` (string, formato ISO8601)
+  - `Indexer` (string)
 - **Resposta (200):**
   ```json
   {
